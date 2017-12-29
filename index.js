@@ -36,6 +36,7 @@ class AutoComplete extends Component {
      * which will be displayed in the result view below the
      * text input.
      */
+    renderHeader: PropTypes.func,
     renderItem: PropTypes.func,
     /**
      * `onShowResults` will be called when list is going to
@@ -47,6 +48,7 @@ class AutoComplete extends Component {
   static defaultProps = {
     data: [],
     defaultValue: '',
+    renderHeader: null,
     renderItem: rowData => <Text>{rowData}</Text>
   };
 
@@ -82,12 +84,13 @@ class AutoComplete extends Component {
   }
 
   _renderItems() {
-    const { listStyle, renderItem } = this.props;
+    const { listStyle, renderHeader, renderItem } = this.props;
     const { dataSource } = this.state;
     return (
       <ListView
         dataSource={dataSource}
         keyboardShouldPersistTaps={true}
+        renderHeader={renderHeader}
         renderRow={renderItem}
         style={[styles.list, listStyle]}
       />
